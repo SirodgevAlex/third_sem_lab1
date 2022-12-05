@@ -1,0 +1,3 @@
+/Users/aleksandrsirodzev/Downloads/third_sem_lab1-main/cmake-build-debug/CMakeFiles/third_sem_lab1.dir
+/Users/aleksandrsirodzev/Downloads/third_sem_lab1-main/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/aleksandrsirodzev/Downloads/third_sem_lab1-main/cmake-build-debug/CMakeFiles/rebuild_cache.dir
