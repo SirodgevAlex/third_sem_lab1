@@ -8,13 +8,22 @@
 #include <chrono>
 #include <vector>
 #include <cmath>
+#include "Draw.h"
 
 using namespace std;
 using namespace std::chrono;
 
 //duration<milliseconds> sec;
 
+template<typename T>
+void RandomInput(int size, ArraySequence<T> &sequence) {
+    delete sequence;
+    *sequence = ArraySequence<T>(size);
+    for (int i = 0; i < size; i++) {
+        sequence->Set(rand(), i);
+    }
 
+}
 
 template<typename T>
 void Print(Sequence<T> *sequence) {
@@ -74,7 +83,9 @@ void Sorts(Sequence<T> *sequence, bool (*compare)(T, T)) {
 }
 
 vector<std::chrono::duration<double>> SortingTimes;
-vector<string> SortName = {"BubbleSort", "CocktailSort", "InsertionSort", "SelectionSort", "CountingSort", "BinaryInsertionSort", "QuickSort", "ShellSort"};
+vector<string> SortName = {"BubbleSort", "CocktailSort", "InsertionSort", "SelectionSort", "CountingSort",
+                           "BinaryInsertionSort", "QuickSort", "ShellSort"};
+
 template<typename T>
 void Mainfunc() {
     srand(time(NULL));
@@ -92,6 +103,8 @@ void Mainfunc() {
                 cout << "Please input size of sequence\n";;
                 int size;
                 cin >> size;
+                delete sequence;
+                sequence = new ArraySequence<T>();
                 cout << "Input data\n";
                 //sequence->ArraySequence();
                 for (int i = 0; i < size; i++) {
@@ -109,7 +122,6 @@ void Mainfunc() {
                     cin >> size;
                     delete sequence;
                     sequence = new ArraySequence<T>(size);
-                    //cout << "da z ttu";
                     for (int i = 0; i < size; i++) {
                         sequence->Set(rand(), i);
                     }
@@ -157,12 +169,13 @@ void Mainfunc() {
                 SortTimes(AuxiliarySequence, SortingTimes, SortName, asc);
                 for (int i = 0; i < SortName.size(); i++) {
                     cout << SortName[i] << " elapsed time in milliseconds: "
-                         << chrono::duration_cast<chrono::milliseconds>(SortingTimes[i]).count()
+                         << chrono::duration_cast<chrono::milliseconds >(SortingTimes[i]).count()
                          << " ms" << endl;
                 }
             }
-        }
-        else {
+        } else if (Command == 7) {
+            draw<T>(SortName, asc);
+        } else {
             sequence->~ArraySequence();
         }
     }

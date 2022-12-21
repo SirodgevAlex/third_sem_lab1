@@ -17,20 +17,30 @@ protected:
     int size = 0;
 public:
     virtual T GetFirst() const = 0;
-    virtual T GetLast() const = 0;
-    virtual T Get(int index) const = 0;
-    virtual int GetSize() const { return this->size; }
-    virtual Sequence<T>* GetSubSequence(int startIndex, int endIndex) const = 0;
-    virtual void Set(const T &value, int index) = 0;
-    virtual void Append(const T &item) = 0;
-    virtual void Prepend(const T &item) = 0;
-    virtual void InsertAt(const T &item, int index) = 0;
-    virtual Sequence<T>* Concat(const Sequence<T>& seq) const = 0;
-    virtual bool operator==(const Sequence<T> &seq){
-        if(this->size != seq.size) return false;
 
-        for(int i = 0; i < this->size; i++){
-            if(this->Get(i) != seq.Get(i)) return false;
+    virtual T GetLast() const = 0;
+
+    virtual T Get(int index) const = 0;
+
+    virtual int GetSize() const { return this->size; }
+
+    virtual Sequence<T> *GetSubSequence(int startIndex, int endIndex) const = 0;
+
+    virtual void Set(const T &value, int index) = 0;
+
+    virtual void Append(const T &item) = 0;
+
+    virtual void Prepend(const T &item) = 0;
+
+    virtual void InsertAt(const T &item, int index) = 0;
+
+    virtual Sequence<T> *Concat(const Sequence<T> &seq) const = 0;
+
+    virtual bool operator==(const Sequence<T> &seq) {
+        if (this->size != seq.size) return false;
+
+        for (int i = 0; i < this->size; i++) {
+            if (this->Get(i) != seq.Get(i)) return false;
         }
         return true;
     }
@@ -41,7 +51,7 @@ class ArraySequence : public Sequence<T> {
 protected:
     DynamicArray<T> *data;
 public:
-    ArraySequence(){
+    ArraySequence() {
         this->data = new DynamicArray<T>();
         this->size = 0;
     }
@@ -56,7 +66,7 @@ public:
         this->size = seq.size;
     }
 
-    ArraySequence(DynamicArray<T>* array) {
+    ArraySequence(DynamicArray<T> *array) {
         this->data = array;
         this->size = array->GetSize();
     }
@@ -66,7 +76,7 @@ public:
         this->size = size;
     }
 
-    virtual ~ArraySequence(){
+    virtual ~ArraySequence() {
         delete this->data;
         this->size = 0;
     }
@@ -81,7 +91,7 @@ public:
         return this->data->Get(this->size - 1);
     }
 
-    virtual T Get(int index) const override{
+    virtual T Get(int index) const override {
         if (this->size == 0) throw out_of_range(ZERO_SIZE_MESSAGE);
         if ((index < 0) or (index >= this->size)) throw out_of_range(INDEX_OUT_OF_RANGE_MESSAGE);
         return this->data->Get(index);
@@ -92,7 +102,7 @@ public:
         this->data->Set(item, index);
     }
 
-    virtual ArraySequence<T> *GetSubSequence(int startIndex, int endIndex) const override{
+    virtual ArraySequence<T> *GetSubSequence(int startIndex, int endIndex) const override {
         if ((startIndex < 0) or (startIndex >= this->size)) throw out_of_range(INDEX_OUT_OF_RANGE_MESSAGE);
         if ((endIndex < 0) or (endIndex >= this->size)) throw out_of_range(INDEX_OUT_OF_RANGE_MESSAGE);
         if (startIndex > endIndex) throw out_of_range(INDEX_OUT_OF_RANGE_MESSAGE);
@@ -110,7 +120,7 @@ public:
         return this->size;
     }
 
-    virtual void Append(const T &item) override{
+    virtual void Append(const T &item) override {
         T NewArray[this->size + 1];
         int i;
         for (i = 0; i < this->size; i++) {
@@ -122,7 +132,7 @@ public:
         this->size++;
     }
 
-    virtual void Prepend(const T &item) override{
+    virtual void Prepend(const T &item) override {
         T NewArray[this->size + 1];
         int i;
         for (i = 1; i < this->size + 1; i++) {
@@ -134,13 +144,13 @@ public:
         this->size++;
     }
 
-    virtual void InsertAt(const T &item, int index) override{
-        if(index < 0 || index > this->size) throw std::out_of_range(INDEX_OUT_OF_RANGE_MESSAGE);
+    virtual void InsertAt(const T &item, int index) override {
+        if (index < 0 || index > this->size) throw std::out_of_range(INDEX_OUT_OF_RANGE_MESSAGE);
 
         this->data->Resize(this->size + 1);
         T t1 = this->data->Get(index);
         T t2;
-        for(int i = index; i < this->size; i++){
+        for (int i = index; i < this->size; i++) {
             t2 = t1;
             t1 = this->data->Get(i + 1);
             this->data->Set(t2, i + 1);
@@ -150,13 +160,13 @@ public:
         this->size++;
     }
 
-    virtual ArraySequence<T>* Concat(const Sequence<T>& seq) const override{
+    virtual ArraySequence<T> *Concat(const Sequence<T> &seq) const override {
         DynamicArray<T> *array = new DynamicArray<T>(this->size + seq.GetSize());
         ArraySequence<T> *newSequence = new ArraySequence<T>(array);
-        for(int i = 0; i < this->size; i++)
+        for (int i = 0; i < this->size; i++)
             newSequence->Set(this->Get(i), i);
 
-        for(int i = 0; i < seq.GetSize(); i++)
+        for (int i = 0; i < seq.GetSize(); i++)
             newSequence->Set(seq.Get(i), i + this->size);
 
         return newSequence;
@@ -183,7 +193,7 @@ public:
         this->size = 0;
     }
 
-    LinkedListSequence(const LinkedListSequence<T> &seq){
+    LinkedListSequence(const LinkedListSequence<T> &seq) {
         this->list = new LinkedList<T>(*seq.list);
         this->size = seq.size;
     }
@@ -203,7 +213,7 @@ public:
         this->size = length;
     }
 
-    virtual ~LinkedListSequence(){
+    virtual ~LinkedListSequence() {
         delete this->list;
         this->size = 0;
     }
@@ -220,7 +230,7 @@ public:
         return this->list->Get(index);
     }
 
-    virtual LinkedListSequence<T> *GetSubSequence(int startIndex, int endIndex) const override{
+    virtual LinkedListSequence<T> *GetSubSequence(int startIndex, int endIndex) const override {
         LinkedList<T> *subList = this->list->GetSublist(startIndex, endIndex);
         LinkedListSequence<T> *sequence = new LinkedListSequence<T>(subList);
         return sequence;
@@ -249,8 +259,8 @@ public:
         this->size++;
     }
 
-    virtual LinkedListSequence<T>* Concat(const Sequence<T>& seq) const override {
-        LinkedListSequence<T>* newSequence = new LinkedListSequence<T>();
+    virtual LinkedListSequence<T> *Concat(const Sequence<T> &seq) const override {
+        LinkedListSequence<T> *newSequence = new LinkedListSequence<T>();
         int i;
         for (i = 0; i < this->size; i++) {
             newSequence->Append(this->Get(i));
@@ -262,17 +272,15 @@ public:
     }
 
     bool operator==(const LinkedListSequence<T> &list) const {
-        if(this->size != list.size) return false;
+        if (this->size != list.size) return false;
 
-        for(int i = 0; i < this->size; i++){
-            if(this->Get(i) != list.Get(i)) return false;
+        for (int i = 0; i < this->size; i++) {
+            if (this->Get(i) != list.Get(i)) return false;
         }
 
         return true;
     }
 };
-
-
 
 
 #endif //SECOND_SEM_LAB2_ARRAYSEQUENCE_H

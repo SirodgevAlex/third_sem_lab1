@@ -129,19 +129,24 @@ public:
         (*ptr) = new Record;
         this->head = *ptr;
         this->size++;
+        //cout << 1;
     }
 
     void InsertAt(const T &item, int index) { //вставить элемент в позицию index
         if (index < 0 || index > (this->size)) throw std::out_of_range(INDEX_OUT_OF_RANGE_MESSAGE);
-        Record preHead = {.next = head};
+        Record preHead;
         Record *ptr;
         int i;
         for (i = 0, ptr = &preHead; i < index; i++) {
             ptr = ptr->next;
         }
-        ptr->next = new Record{item, ptr->next};
+        ptr->next = new Record;
+        ptr->next->item = item;
+        ptr->next->next = ptr->next->next;
         this->head = preHead.next;
         this->size++;
+        LinkedList<T> *newList = new LinkedList<T>();
+        Record **ptrn = &(newList->head);
     }
 
     LinkedList<T> *Concat(LinkedList<T> &list) const {
@@ -173,10 +178,10 @@ public:
     }
 
     bool operator==(const LinkedList<T> &list) const {
-        if(this->size != list.size) return false;
+        if (this->size != list.size) return false;
 
-        for(int i = 0; i < this->size; i++){
-            if(this->Get(i) != list.Get(i)) return false;
+        for (int i = 0; i < this->size; i++) {
+            if (this->Get(i) != list.Get(i)) return false;
         }
 
         return true;

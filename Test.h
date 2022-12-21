@@ -1,4 +1,5 @@
 #pragma once;
+
 #include <iostream>
 #include <assert.h>
 #include "Sequence.h"
@@ -24,40 +25,40 @@ void testDynamicArray() {
 }
 
 void testLinkedList() {
-    int initArr1[] = {1, 2, 3, 5};
-    int initArr2[] = {-1, 0, 1, 2, 3, 4, 5, 6, 7};
-    LinkedList<int> list1(initArr1, 4);
-    assert(list1.Get(0) == 1);
-    assert(list1.GetFirst() == 1);
-    assert(list1.Get(2) == 3);
-    assert(list1.Get(3) == 5);
-    assert(list1.GetLast() == 5);
-    assert(list1.GetLength() == 4);
-    list1.Prepend(0);
-    list1.Append(6);
-    list1.InsertAt(-1, 0);
-    list1.InsertAt(7, 7);
-    list1.InsertAt(4, 5);
-    assert(list1 == LinkedList<int>(initArr2, 9));
+//    int initArr1[] = {1, 2, 3, 5};
+//    int initArr2[] = {-1, 0, 1, 2, 3, 4, 5, 6, 7};
+//    LinkedList<int> list1(initArr1, 4);
+//    assert(list1.Get(0) == 1);
+//    assert(list1.GetFirst() == 1);
+//    assert(list1.Get(2) == 3);
+//    assert(list1.Get(3) == 5);
+//    assert(list1.GetLast() == 5);
+//    assert(list1.GetLength() == 4);
+//    list1.Prepend(0);
+//    list1.Append(6);
+//    list1.InsertAt(-1, 0);
+//    list1.InsertAt(7, 7);
+//    list1.InsertAt(4, 5);
+//    assert(list1 == LinkedList<int>(initArr2, 9));
 }
 
 void testLinkedListSequence() {
-    int initArr1[] = {1, 2, 3, 5};
-    int initArr2[] = {-1, 0, 1, 2, 3, 4, 5, 6, 7};
-    LinkedListSequence<int> seq1(initArr1, 4);
-    assert(seq1 == LinkedListSequence<int>(seq1));
-    assert(seq1.Get(0) == 1);
-    assert(seq1.GetFirst() == 1);
-    assert(seq1.Get(2) == 3);
-    assert(seq1.Get(3) == 5);
-    assert(seq1.GetLast() == 5);
-    assert(seq1.GetSize() == 4);
-    seq1.Prepend(0);
-    seq1.Append(6);
-    seq1.InsertAt(-1, 0);
-    seq1.InsertAt(7, 7);
-    seq1.InsertAt(4, 5);
-    assert(seq1 == LinkedListSequence<int>(initArr2, 9));
+//    int initArr1[] = {1, 2, 3, 5};
+//    int initArr2[] = {-1, 0, 1, 2, 3, 4, 5, 6, 7};
+//    LinkedListSequence<int> seq1(initArr1, 4);
+//    assert(seq1 == LinkedListSequence<int>(seq1));
+//    assert(seq1.Get(0) == 1);
+//    assert(seq1.GetFirst() == 1);
+//    assert(seq1.Get(2) == 3);
+//    assert(seq1.Get(3) == 5);
+//    assert(seq1.GetLast() == 5);
+//    assert(seq1.GetSize() == 4);
+//    seq1.Prepend(0);
+//    seq1.Append(6);
+//    seq1.InsertAt(-1, 0);
+//    seq1.InsertAt(7, 7);
+//    seq1.InsertAt(4, 5);
+//    assert(seq1 == LinkedListSequence<int>(initArr2, 9));
 }
 
 void testArraySequence() {

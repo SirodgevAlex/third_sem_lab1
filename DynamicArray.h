@@ -38,7 +38,7 @@ public:
         this->size = count;
     }
 
-    DynamicArray(const DynamicArray <T> &array, int size) : DynamicArray(size) {
+    DynamicArray(const DynamicArray<T> &array, int size) : DynamicArray(size) {
         if (size > array.size) throw out_of_range(INDEX_OUT_OF_RANGE_MESSAGE);
         int i;
         for (i = 0; i < size; i++) {
@@ -49,7 +49,7 @@ public:
     DynamicArray(const DynamicArray<T> &array) :
             DynamicArray(array.data, array.size) {}
 
-    virtual ~DynamicArray(){
+    virtual ~DynamicArray() {
         delete[] this->data;
         this->size = 0;
     }
@@ -64,7 +64,7 @@ public:
         return this->size;
     }
 
-    void Set(const T& value, int index) {
+    void Set(const T &value, int index) {
         if ((index < 0) or (index >= this->size)) throw out_of_range(INDEX_OUT_OF_RANGE_MESSAGE);
         this->data[index] = value;
     }
@@ -93,7 +93,7 @@ public:
         return true;
     }
 
-    DynamicArray<T>& operator=(const DynamicArray &array){
+    DynamicArray<T> &operator=(const DynamicArray &array) {
         delete this->data;
         this->data = array.size;
         this->data = new T[this->data];

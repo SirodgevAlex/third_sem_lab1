@@ -28,8 +28,8 @@ void Swap(Sequence<T> *sequence, int i, int g) {
 }
 
 template<class T>
-void BubbleSort(Sequence<T> *sequence, bool (*compare)(T, T)) {
-    if (sequence->GetSize() <= 1) return;
+Sequence<T> *BubbleSort(Sequence<T> *sequence, bool (*compare)(T, T)) {
+    if (sequence->GetSize() <= 1) return sequence;
     int size = sequence->GetSize();
     for (int i = 0; i < size; i++) {
         for (int g = i + 1; g < size; g++) { //если с i + 1 начать, то в теории немного асимптотику улучшим
@@ -38,10 +38,11 @@ void BubbleSort(Sequence<T> *sequence, bool (*compare)(T, T)) {
             }
         }
     }
+    return sequence;
 }
 
 template<class T>
-void CocktailSort(Sequence<T> *sequence, bool (*compare)(T, T)) {
+Sequence<T> *CocktailSort(Sequence<T> *sequence, bool (*compare)(T, T)) {
     //if (sequence->GetSize() <= 1) return;
     int size = sequence->GetSize();
     int left = 0;
@@ -63,11 +64,12 @@ void CocktailSort(Sequence<T> *sequence, bool (*compare)(T, T)) {
         }
         left = control;
     } while (left < right);
+    return sequence;
 }
 
 template<class T>
-void InsertionSort(Sequence<T> *sequence, bool (*compare)(T, T)) {
-    if (sequence->GetSize() <= 1) return;
+Sequence<T> *InsertionSort(Sequence<T> *sequence, bool (*compare)(T, T)) {
+    if (sequence->GetSize() <= 1) return sequence;
     int size = sequence->GetSize();
     for (int i = 1; i < size; i++) {
         T tmp = sequence->Get(i);
@@ -78,12 +80,13 @@ void InsertionSort(Sequence<T> *sequence, bool (*compare)(T, T)) {
         }
         sequence->Set(tmp, g);
     }
+    return sequence;
 }
 //O(n^2)
 
 template<class T>
-void SelectionSort(Sequence<T> *sequence, bool (*compare)(T, T)) {
-    if (sequence->GetSize() <= 1) return;
+Sequence<T> *SelectionSort(Sequence<T> *sequence, bool (*compare)(T, T)) {
+    if (sequence->GetSize() <= 1) return sequence;
     int size = sequence->GetSize();
     for (int i = 0; i < size - 1; i++) {
         int MinIndex = i;
@@ -96,11 +99,12 @@ void SelectionSort(Sequence<T> *sequence, bool (*compare)(T, T)) {
             Swap(sequence, MinIndex, i);
         }
     }
+    return sequence;
 }
 // O(n^2)
 
 template<class T>
-void CountingSort(Sequence<T> *sequence, bool (*compare)(T, T)) {
+Sequence<T> *CountingSort(Sequence<T> *sequence, bool (*compare)(T, T)) {
     map<T, int> m;
     int size = sequence->GetSize();
     for (int i = 0; i < size; i++) {
@@ -127,6 +131,7 @@ void CountingSort(Sequence<T> *sequence, bool (*compare)(T, T)) {
             }
         }
     }
+    return sequence;
 }
 
 template<typename T>
@@ -147,7 +152,7 @@ int BinarySearch(Sequence<T> *sequence, T data, bool (*compare)(T, T)) {
 }
 
 template<class T>
-void BinaryInsertionSort(Sequence<T> *sequence, bool (*compare)(T, T)) {
+Sequence<T> *BinaryInsertionSort(Sequence<T> *sequence, bool (*compare)(T, T)) {
     int size = sequence->GetSize();
     ArraySequence<T> *newSequence = new ArraySequence<T>();
     for (int i = 0; i < size; i++) {
@@ -162,10 +167,11 @@ void BinaryInsertionSort(Sequence<T> *sequence, bool (*compare)(T, T)) {
         sequence->Set(newSequence->Get(i), i);
     }
     delete newSequence;
+    return sequence;
 }
 
 template<class T>
-void QuickSort(Sequence<T> *sequence, int first, int last, bool (*compare)(T, T)) {
+Sequence<T> *QuickSort(Sequence<T> *sequence, int first, int last, bool (*compare)(T, T)) {
     int l = first, r = last;
     T mid = sequence->Get((first + last) / 2);
     do {
@@ -189,10 +195,11 @@ void QuickSort(Sequence<T> *sequence, int first, int last, bool (*compare)(T, T)
     if (first < r) {
         QuickSort(sequence, first, r, compare);
     }
+    return sequence;
 }
 
 template<class T>
-void ShellSort(Sequence<T> *sequence, bool (*compare)(T, T)) {
+Sequence<T> *ShellSort(Sequence<T> *sequence, bool (*compare)(T, T)) {
     int size = sequence->GetSize();
     for (int i = size / 2; i > 0; i--) {
         for (int g = i; g < size; g++) {
@@ -203,11 +210,13 @@ void ShellSort(Sequence<T> *sequence, bool (*compare)(T, T)) {
             }
         }
     }
+    return sequence;
 }
 
 template<class T>
-void
-SortTimes(Sequence<T> *AuxiliarySequence, vector<std::chrono::duration<double>> &SortingTimes, vector<string> SortName, bool (*compare)(T, T)) {
+vector<std::chrono::duration<double>>
+*SortTimes(Sequence<T> *AuxiliarySequence, vector<std::chrono::duration<double>> &SortingTimes, vector<string> &SortName,
+           bool (*compare)(T, T)) {
     std::chrono::duration<double> elapsed_seconds;
     ArraySequence<T> *sequence = new ArraySequence<T>(AuxiliarySequence->GetSize());
     SortingTimes.clear();

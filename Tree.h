@@ -163,8 +163,8 @@ public:
         FindWithPointer(pass[0], ptr);
         if (((*ptr)->item) != pass[0]) throw WRONG_PASS_MESSAGE;
         for (int i = 1; i < count; i++) {
-            Node** ptrl = &((*ptr)->left);
-            Node** ptrr = &((*ptr)->right);
+            Node **ptrl = &((*ptr)->left);
+            Node **ptrr = &((*ptr)->right);
             if (*ptrl != nullptr) {
                 if ((*ptrl)->item == pass[i]) {
                     ptr = &((*ptr)->left);
@@ -177,8 +177,8 @@ public:
                 throw WRONG_PASS_MESSAGE;
             }
         }
-        Node** ptrl = &((*ptr)->left);
-        Node** ptrr = &((*ptr)->right);
+        Node **ptrl = &((*ptr)->left);
+        Node **ptrr = &((*ptr)->right);
         if (*ptrl != nullptr) {
             ptr = &((*ptr)->left);
             return (*ptrl)->item;

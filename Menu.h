@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void MainMenu(){
+void MainMenu() {
     cout << "What do you want to do?\n";
     cout << "0 - Stop\n";
     cout << "1 - Read sequence\n";
@@ -13,6 +13,7 @@ void MainMenu(){
     cout << "4 - Test\n";
     cout << "5 - Print sort time\n";
     cout << "6 - Compare sorting (by time)\n";
+    cout << "7 - Draw graph\n";
 };
 
 void TypeSortMenu() {
